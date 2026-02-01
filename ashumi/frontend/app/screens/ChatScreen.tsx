@@ -118,7 +118,6 @@ export const ChatScreen: React.FC = () => {
             value={inputText}
             onChangeText={setInputText}
             placeholder="Ask about family financial planning..."
-            style={styles.textInput}
           />
         </View>
         <Button
@@ -207,8 +206,5 @@ const styles = StyleSheet.create({
   },
   inputWrapper: {
     flex: 1,
-  },
-  textInput: {
-    marginVertical: 0,
   },
 });

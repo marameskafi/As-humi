@@ -69,17 +69,17 @@ export class AuthStack extends cdk.Stack {
     // Outputs
     new cdk.CfnOutput(this, 'UserPoolId', {
       value: this.userPool.userPoolId,
-      exportName: `${this.stackName}-UserPoolId`,
+      exportName: `${id}-UserPoolId`,
     });
 
     new cdk.CfnOutput(this, 'UserPoolClientId', {
       value: this.userPoolClient.userPoolClientId,
-      exportName: `${this.stackName}-UserPoolClientId`,
+      exportName: `${id}-UserPoolClientId`,
     });
 
     new cdk.CfnOutput(this, 'UserPoolArn', {
       value: this.userPool.userPoolArn,
-      exportName: `${this.stackName}-UserPoolArn`,
+      exportName: `${id}-UserPoolArn`,
     });
   }
 }

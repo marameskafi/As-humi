@@ -48,12 +48,12 @@ export class DataStack extends cdk.Stack {
     // Output table name for other stacks
     new cdk.CfnOutput(this, 'TableName', {
       value: this.table.tableName,
-      exportName: `${this.stackName}-TableName`,
+      exportName: `${id}-TableName`,
     });
 
     new cdk.CfnOutput(this, 'TableArn', {
       value: this.table.tableArn,
-      exportName: `${this.stackName}-TableArn`,
+      exportName: `${id}-TableArn`,
     });
   }
 }

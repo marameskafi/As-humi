@@ -140,8 +140,8 @@ exports.handler = async (event) => {
       effect: iam.Effect.ALLOW,
       actions: ['bedrock:InvokeModel'],
       resources: [
-        `arn:aws:bedrock:${this.region}::foundation-model/anthropic.claude-3-haiku-20240307-v1:0`,
-        `arn:aws:bedrock:${this.region}::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0`,
+        `arn:aws:bedrock:*::foundation-model/anthropic.claude-3-haiku-20240307-v1:0`,
+        `arn:aws:bedrock:*::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0`,
       ],
     }));
 
@@ -151,7 +151,7 @@ exports.handler = async (event) => {
     // Outputs
     new cdk.CfnOutput(this, 'ChatFunctionArn', {
       value: this.chatFunction.functionArn,
-      exportName: `${this.stackName}-ChatFunctionArn`,
+      exportName: `${id}-ChatFunctionArn`,
     });
   }
 }

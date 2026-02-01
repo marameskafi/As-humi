@@ -10,3 +10,9 @@ npm-debug.*
 *.orig.*
 web-build/
 .env
+
+# Expo
+.expo/
+
+# Metro
+.metro-health-check*

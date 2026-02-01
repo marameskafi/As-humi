@@ -3,7 +3,6 @@ import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as cognito from 'aws-cdk-lib/aws-cognito';
-import * as iam from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 
 export interface ApiStackProps extends cdk.StackProps {
@@ -20,7 +19,7 @@ export class ApiStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: ApiStackProps) {
     super(scope, id, props);
 
-    const { environment, table, userPool, userPoolClient, bedrockChatFunction } = props;
+    const { environment, table, userPool, bedrockChatFunction } = props;
 
     // Create API Gateway
     this.api = new apigateway.RestApi(this, 'AshumiApi', {
@@ -99,7 +98,7 @@ async function getMembers(userId) {
     TableName: TABLE_NAME,
     KeyConditionExpression: 'pk = :pk AND begins_with(sk, :sk)',
     ExpressionAttributeValues: {
-      ':pk': \`USER#\${userId}\`,
+      ':pk': 'USER#' + userId,
       ':sk': 'MEMBER#',
     },
   };
@@ -127,8 +126,8 @@ async function createMember(userId, body) {
   const params = {
     TableName: TABLE_NAME,
     Item: {
-      pk: \`USER#\${userId}\`,
-      sk: \`MEMBER#\${memberId}\`,
+      pk: 'USER#' + userId,
+      sk: 'MEMBER#' + memberId,
       name,
       contributionAmount,
       createdAt: new Date().toISOString(),
@@ -159,8 +158,8 @@ async function updateMember(userId, memberId, body) {
   const params = {
     TableName: TABLE_NAME,
     Key: {
-      pk: \`USER#\${userId}\`,
-      sk: \`MEMBER#\${memberId}\`,
+      pk: 'USER#' + userId,
+      sk: 'MEMBER#' + memberId,
     },
     UpdateExpression: 'SET #name = :name, contributionAmount = :contributionAmount, updatedAt = :updatedAt',
     ExpressionAttributeNames: {
@@ -195,8 +194,8 @@ async function deleteMember(userId, memberId) {
   const params = {
     TableName: TABLE_NAME,
     Key: {
-      pk: \`USER#\${userId}\`,
-      sk: \`MEMBER#\${memberId}\`,
+      pk: 'USER#' + userId,
+      sk: 'MEMBER#' + memberId,
     },
   };
 
@@ -273,7 +272,7 @@ async function getPlans(userId) {
     TableName: TABLE_NAME,
     KeyConditionExpression: 'pk = :pk AND begins_with(sk, :sk)',
     ExpressionAttributeValues: {
-      ':pk': \`USER#\${userId}\`,
+      ':pk': 'USER#' + userId,
       ':sk': 'PLAN#',
     },
   };
@@ -302,8 +301,8 @@ async function createPlan(userId, body) {
   const params = {
     TableName: TABLE_NAME,
     Item: {
-      pk: \`USER#\${userId}\`,
-      sk: \`PLAN#\${planId}\`,
+      pk: 'USER#' + userId,
+      sk: 'PLAN#' + planId,
       name,
       totalAmount,
       frequency,
@@ -336,8 +335,8 @@ async function updatePlan(userId, planId, body) {
   const params = {
     TableName: TABLE_NAME,
     Key: {
-      pk: \`USER#\${userId}\`,
-      sk: \`PLAN#\${planId}\`,
+      pk: 'USER#' + userId,
+      sk: 'PLAN#' + planId,
     },
     UpdateExpression: 'SET #name = :name, totalAmount = :totalAmount, frequency = :frequency, updatedAt = :updatedAt',
     ExpressionAttributeNames: {
@@ -420,12 +419,12 @@ async function updatePlan(userId, planId, body) {
     // Outputs
     new cdk.CfnOutput(this, 'ApiUrl', {
       value: this.api.url,
-      exportName: `${this.stackName}-ApiUrl`,
+      exportName: `${id}-ApiUrl`,
     });
 
     new cdk.CfnOutput(this, 'ApiId', {
       value: this.api.restApiId,
-      exportName: `${this.stackName}-ApiId`,
+      exportName: `${id}-ApiId`,
     });
   }
 }

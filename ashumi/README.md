@@ -1,12 +1,12 @@
 # Ashumi MVP
 
-A full-stack family contribution tracking application built with React Native (Expo) and AWS CDK.
+A full-stack family contribution tracking application built with React Native (Expo 54) and AWS CDK.
 
 ## Project Structure
 
 ```
 ashumi/
-├── frontend/          # React Native + Expo app
+├── frontend/          # React Native + Expo 54 app
 └── backend/           # AWS CDK infrastructure
 ```
 
@@ -19,7 +19,7 @@ npm install
 npm start
 ```
 
-The frontend runs with mocked services by default. To switch to AWS services after deployment, update the service configuration in `services/index.ts`.
+**New in Expo 54**: Enhanced performance, React Native 0.76, and improved development experience.
 
 ### Backend Deployment
 ```bash
@@ -28,6 +28,20 @@ npm install
 npm run build
 npx cdk bootstrap  # First time only
 npx cdk deploy --all
+```
+
+## Expo 54 Upgrade
+
+This project has been upgraded to Expo 54 with the following improvements:
+- React Native 0.76.3
+- React Navigation v7
+- Enhanced TypeScript support
+- Better Metro bundler configuration
+- Improved gesture handling
+
+To upgrade an existing installation:
+```bash
+./upgrade-expo.sh
 ```
 
 ## Service Layer Architecture
