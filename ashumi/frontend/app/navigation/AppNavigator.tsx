@@ -1,13 +1,19 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { View, Text } from 'react-native';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useAuth } from '../context/AuthContext';
+import { Logo, ProfileSwitcher } from '../../components';
 
 // Import screens
 import { WelcomeScreen } from '../screens/WelcomeScreen';
 import { SignInScreen } from '../screens/SignInScreen';
 import { SignUpScreen } from '../screens/SignUpScreen';
 import { HomeScreen } from '../screens/HomeScreen';
+import { StocksScreen } from '../screens/StocksScreen';
+import { BasketsScreen } from '../screens/BasketsScreen';
+import { FundingScreen } from '../screens/FundingScreen';
 import { FamilyMembersScreen } from '../screens/FamilyMembersScreen';
 import { AddEditMemberScreen } from '../screens/AddEditMemberScreen';
 import { ContributionPlanScreen } from '../screens/ContributionPlanScreen';
@@ -22,10 +28,10 @@ export type RootStackParamList = {
 };
 
 export type MainTabParamList = {
-  Home: undefined;
-  Family: undefined;
-  Plans: undefined;
-  Chat: undefined;
+  Dashboard: undefined;
+  Stocks: undefined;
+  Baskets: undefined;
+  Funding: undefined;
   Settings: undefined;
 };
 
@@ -59,34 +65,78 @@ const MainNavigator = () => {
   return (
     <MainTab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: '#007AFF',
+        tabBarActiveTintColor: '#4A7C59',
         tabBarInactiveTintColor: '#8E8E93',
+        tabBarStyle: {
+          backgroundColor: '#FFFFFF',
+          borderTopColor: '#E9ECEF',
+        },
+        headerStyle: {
+          backgroundColor: '#FFFFFF',
+          borderBottomColor: '#E9ECEF',
+        },
+        headerTitle: '', // Remove page titles
+        headerLeft: () => (
+          <View style={{ marginLeft: 16, justifyContent: 'center' }}>
+            <Logo size="small" />
+          </View>
+        ),
+        headerRight: () => (
+          <View style={{ marginRight: 16, justifyContent: 'center' }}>
+            <ProfileSwitcher showName={false} compact={true} />
+          </View>
+        ),
       }}
     >
       <MainTab.Screen 
-        name="Home" 
+        name="Dashboard" 
         component={HomeScreen}
-        options={{ title: 'Dashboard' }}
+        options={{ 
+          title: 'Dashboard',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" size={size} color={color} />
+          )
+        }}
       />
       <MainTab.Screen 
-        name="Family" 
-        component={FamilyNavigator}
-        options={{ title: 'Family', headerShown: false }}
+        name="Stocks" 
+        component={StocksScreen}
+        options={{ 
+          title: 'Stocks',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="trending-up" size={size} color={color} />
+          )
+        }}
       />
       <MainTab.Screen 
-        name="Plans" 
-        component={ContributionPlanScreen}
-        options={{ title: 'Plans' }}
+        name="Baskets" 
+        component={BasketsScreen}
+        options={{ 
+          title: 'Baskets',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="folder" size={size} color={color} />
+          )
+        }}
       />
       <MainTab.Screen 
-        name="Chat" 
-        component={ChatScreen}
-        options={{ title: 'Chat' }}
+        name="Funding" 
+        component={FundingScreen}
+        options={{ 
+          title: 'Funding',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="wallet" size={size} color={color} />
+          )
+        }}
       />
       <MainTab.Screen 
         name="Settings" 
         component={SettingsScreen}
-        options={{ title: 'Settings' }}
+        options={{ 
+          title: 'Settings',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="settings" size={size} color={color} />
+          )
+        }}
       />
     </MainTab.Navigator>
   );

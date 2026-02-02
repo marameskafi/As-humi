@@ -1,16 +1,19 @@
 export const theme = {
   colors: {
-    primary: '#007AFF',
-    secondary: '#5856D6',
+    primary: '#4A7C59', // Green from the design
+    secondary: '#6B8E23',
     success: '#34C759',
     warning: '#FF9500',
     error: '#FF3B30',
     background: '#FFFFFF',
-    surface: '#F2F2F7',
-    text: '#000000',
-    textSecondary: '#8E8E93',
-    border: '#C6C6C8',
-    placeholder: '#C7C7CD',
+    surface: '#F8F9FA',
+    text: '#2C3E50',
+    textSecondary: '#6C757D',
+    border: '#E9ECEF',
+    placeholder: '#ADB5BD',
+    cardBackground: '#FFFFFF',
+    sidebarBg: '#2C3E50',
+    sidebarActive: '#4A7C59',
   },
   spacing: {
     xs: 4,
